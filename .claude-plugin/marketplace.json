@@ -1,0 +1,14 @@
+{
+  "type": "marketplace",
+  "name": "joe-marketplace",
+  "description": "A curated collection of Claude Code plugins for developer workflows",
+  "owner": "JoeWhiteJr",
+  "repository": "https://github.com/JoeWhiteJr/plugin_MarketPlace_Joe",
+  "plugins": [
+    {
+      "name": "git-workflow",
+      "path": "./plugins/git-workflow",
+      "description": "Automates the done-coding-to-PR-ready cycle: rebase, test, commit, and PR creation"
+    }
+  ]
+}
