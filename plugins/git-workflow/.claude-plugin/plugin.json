@@ -2,12 +2,7 @@
   "name": "git-workflow",
   "version": "1.0.0",
   "description": "Automates the done-coding-to-PR-ready cycle: rebase onto main, resolve conflicts, run tests, commit, and create a PR. Includes post-merge branch cleanup.",
-  "author": "JoeWhiteJr",
-  "skills": [
-    "skills/ship",
-    "skills/cleanup"
-  ],
-  "agents": [
-    "agents/rebase-resolver.md"
-  ]
+  "author": {
+    "name": "JoeWhiteJr"
+  }
 }
