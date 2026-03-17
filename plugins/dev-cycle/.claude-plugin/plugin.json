@@ -1,0 +1,6 @@
+{
+  "name": "dev-cycle",
+  "version": "1.0.0",
+  "description": "4-team continuous improvement workflow: audit, scout, develop, QA — runs autonomous cycles on any project.",
+  "author": { "name": "JoeWhiteJr" }
+}

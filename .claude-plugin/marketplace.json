@@ -9,6 +9,11 @@
       "name": "git-workflow",
       "source": "./plugins/git-workflow",
       "description": "Automates the done-coding-to-PR-ready cycle: rebase, test, commit, and PR creation"
+    },
+    {
+      "name": "dev-cycle",
+      "source": "./plugins/dev-cycle",
+      "description": "4-team continuous improvement workflow: audit, scout, develop, and QA in autonomous loops"
     }
   ]
 }
