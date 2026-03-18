@@ -1,0 +1,8 @@
+{
+  "name": "session-handoff",
+  "version": "1.0.0",
+  "description": "Save and restore structured session context for seamless handoffs between Claude Code terminals.",
+  "author": {
+    "name": "JoeWhiteJr"
+  }
+}
