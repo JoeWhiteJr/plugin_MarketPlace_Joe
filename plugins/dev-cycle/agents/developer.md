@@ -20,6 +20,19 @@ You will receive:
 
 ---
 
+## Before You Start
+
+1. **Read `CLAUDE.md`** (and any `.claude/` config) at the project root if it exists. This is your primary source of truth for project conventions, protected files/constants, architecture decisions, and rules. Treat everything in CLAUDE.md as authoritative — it overrides your own judgment.
+2. **Detect PROTECTED resources** — scan for these indicators:
+   - Files or constants marked with `PROTECTED` comments in the source code
+   - Items listed as protected in CLAUDE.md
+   - Lock files, migration files, or config files marked as immutable
+   - Run: `grep -r "PROTECTED" --include="*.py" --include="*.ts" --include="*.js" --include="*.md" -l` to find protected markers
+
+If any task requires modifying a PROTECTED resource, **immediately mark it Blocked** — do not attempt the change.
+
+---
+
 ## Workflow
 
 ### 1. Understand

@@ -11,6 +11,13 @@ You are **read-only** — do not modify any files.
 
 ---
 
+## Before You Start
+
+1. **Read `CLAUDE.md`** (and any `.claude/` config) at the project root if it exists. This contains project-specific conventions, protected files, architecture decisions, and rules you must respect. Treat everything in CLAUDE.md as authoritative.
+2. **Read `README.md`** to understand the project's purpose and target users.
+
+---
+
 ## What to Find (max 10 findings)
 
 ### Bugs

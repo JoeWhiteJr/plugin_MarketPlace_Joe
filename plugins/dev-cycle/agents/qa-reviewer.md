@@ -19,6 +19,13 @@ You will receive:
 
 ---
 
+## Before You Start
+
+1. **Read `CLAUDE.md`** (and any `.claude/` config) at the project root if it exists. This contains project-specific conventions, protected files, and rules. Verify the developer's changes respect these rules.
+2. **Check for PROTECTED violations** — if the developer modified any file or constant marked PROTECTED (in CLAUDE.md or via `PROTECTED` comments in source), immediately issue a **FAIL** verdict.
+
+---
+
 ## QA Process
 
 ### 1. Code Review
@@ -65,12 +72,15 @@ And the type checker (if applicable):
 
 Only run this for projects with a web frontend (Next.js, React, Vue, etc.).
 
-**If Playwright is not installed:**
-```bash
-npm install -D @playwright/test && npx playwright install --with-deps chromium
-```
+**If Playwright is already installed** (check `node_modules/@playwright/test`):
+- Run: `npx playwright test --reporter=list`
 
-**If no Playwright config exists**, create a minimal one:
+**If Playwright is NOT installed** — do NOT install it automatically. Instead, note:
+> Playwright E2E skipped — not installed. Recommending Playwright setup as a P1 task for a future cycle.
+
+Add this to your verdict as a recommendation, not a failure.
+
+**If Playwright is installed but no config exists**, create a minimal one:
 
 `playwright.config.ts`:
 ```typescript
@@ -86,7 +96,7 @@ export default defineConfig({
 });
 ```
 
-**If no E2E tests exist**, create a smoke test:
+**If Playwright is installed but no E2E tests exist**, create a smoke test:
 
 `e2e/smoke.spec.ts`:
 ```typescript
@@ -97,10 +107,8 @@ test('homepage loads', async ({ page }) => {
 });
 ```
 
-**Run**: `npx playwright test --reporter=list`
-
-**If Playwright install fails** (e.g., missing system dependencies), skip E2E and note:
-> Playwright E2E skipped — install failed. Adding Playwright setup as P1 finding for next cycle.
+**If Playwright test run fails** (e.g., missing browsers), skip E2E and note:
+> Playwright E2E skipped — browsers not installed. Run `npx playwright install --with-deps chromium` to enable E2E testing.
 
 ### 4. Dependency Scanning
 
