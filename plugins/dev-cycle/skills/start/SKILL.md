@@ -140,11 +140,16 @@ Auto-detect the project profile by checking for these files. Store results in th
 
 ## Phase 4 — Continuous Loop
 
+**Maximum cycles**: 5 per session (safety cap). After 5 cycles, stop automatically and report. The user can restart with `/dev-cycle:start` if they want more.
+
 Execute cycles in a loop:
 
 1. Increment `cycle` in state.json.
-2. **Execute the cycle logic** — follow the exact same process defined in the `cycle` skill (SKILL.md in `skills/cycle/`). Do NOT invoke the cycle skill as a sub-skill — execute its logic inline.
-3. After cycle completes, read `.workflow/state.json`:
+2. **Check cycle cap**: if `cycle` > 5, stop:
+   > **Cycle cap reached (5 cycles).** Stopping to let you review accumulated PRs. Run `/dev-cycle:start` to continue.
+   Set status to "stopped" and print final report.
+3. **Execute the cycle logic** — follow the exact same process defined in the `cycle` skill (SKILL.md in `skills/cycle/`). Do NOT invoke the cycle skill as a sub-skill — execute its logic inline.
+4. After cycle completes, read `.workflow/state.json`:
    - If `status` is `"stopped"` → print final report and end.
    - If the cycle had any **P0 tasks** → ask user: "This cycle included P0 (critical) tasks. Review the PRs and confirm before continuing to the next cycle." Wait for approval.
    - If `status` is `"running"` and no P0 gate → proceed to next cycle.
