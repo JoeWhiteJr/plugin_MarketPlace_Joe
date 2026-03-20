@@ -1,0 +1,8 @@
+{
+  "name": "downloads-organizer",
+  "version": "1.0.0",
+  "description": "Scans the Windows Downloads folder, classifies files by project-specific rules, and sorts them into destination directories. Supports dry-run mode and AI-assisted classification of unrecognized files.",
+  "author": {
+    "name": "JoeWhiteJr"
+  }
+}

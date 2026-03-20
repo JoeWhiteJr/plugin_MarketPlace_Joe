@@ -19,6 +19,11 @@
       "name": "session-handoff",
       "source": "./plugins/session-handoff",
       "description": "Save and restore structured session context for seamless handoffs between Claude Code terminals"
+    },
+    {
+      "name": "downloads-organizer",
+      "source": "./plugins/downloads-organizer",
+      "description": "Scan Downloads folder, classify files by project rules, and sort them into destinations with AI-assisted classification"
     }
   ]
 }

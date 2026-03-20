@@ -1,0 +1,177 @@
+# Downloads Organizer Configuration
+# All classification rules for sorting ~/Downloads into project directories.
+
+downloads_dir: /mnt/c/Users/josep/Downloads
+stats_dir: /mnt/c/Users/josep/OneDrive/Desktop/Stats
+home_dir: /home/joe
+
+skip_extensions: [.jpg, .jpeg, .png, .gif, .webp, .avif, .svg, .mp3, .m4a, .m4v, .mov, .tmp, .ini]
+flag_installer_extensions: [.exe, .msi, .msix, .iso, .deb, .apk]
+large_video_threshold_mb: 100
+stats_script_extensions: [.rmd, .omv]
+stats_script_dest: Adv Research Projects/
+
+rules:
+  - label: Meridian
+    patterns: [meridian]
+    dest: "{home}/Meridian/"
+
+  - label: "rydlnk -> Utah_Commuting"
+    patterns: [rydlnk, ridelink, "start ridelink"]
+    dest: "{stats}/Utah_Commuting/"
+
+  - label: "Trading / Wasden -> SSS docs"
+    patterns:
+      - trading_model
+      - "trading model"
+      - trading_schedule
+      - trading_responses
+      - wasden
+      - "Jared's Full Wasden"
+      - "ChatGPT+Wasden"
+      - "ChatGPT-Stock Strategy"
+      - "Holdings -"
+      - Portfolio
+      - Macro_Event_Calendar
+      - Trading_Tasks
+    dest: "{home}/Special-Sprinkle-Sauce/docs/"
+
+  - label: "Spirituality / DSIT / DSIIR / DSII"
+    patterns: [spirituality, Sprituality, DSIT, DSIIR, DSII, "Defining Spiritual"]
+    dest: "{stats}/Spirituality/01_Raw_Data/"
+
+  - label: DBIT
+    patterns: [DBIT, "Defining Business Issues"]
+    dest: "{stats}/DBIT/"
+
+  - label: Growth Summit
+    patterns: [Growth Summit, GrowthSummit, "2024GS_"]
+    dest: "{stats}/Growth Summit/"
+
+  - label: MK Labs
+    patterns: [MKL_, "MK Labs", mkl, Lighthouse, FFL]
+    dest: "{stats}/MK Labs/"
+
+  - label: OOA
+    patterns: [OOA, "Out of Africa"]
+    dest: "{stats}/OOA/"
+
+  - label: iHub Investors
+    patterns: [iHub, ihub, "Impact Fund", impact_fund, ImpactFund]
+    dest: "{stats}/iHub Investors/"
+
+  - label: Silicon Slopes Survey
+    patterns: ["Silicon Slopes", siliconslopes]
+    dest: "{stats}/Silicon Slopes Survey/"
+
+  - label: UWES Work Well-being
+    patterns: [Utrecht, UWES, "Work & Well-being"]
+    dest: "{stats}/UWES Work Well-being/"
+
+  - label: Community Engagement Survey
+    patterns: ["Community Engagement Survey"]
+    dest: "{stats}/Community Engagement Survey/"
+
+  - label: "Jaggia 4e -> MGMT 2340"
+    patterns: [Jaggia4e, jaggia_BS_4e]
+    dest: "{stats}/MGMT 2340/"
+
+  - label: "Jaggia BA 2025 -> Textbook Coding"
+    patterns: [JaggiaBA2025, Jaggia5e, jaggia_ba_2025]
+    dest: "{stats}/Textbook Coding/"
+
+  - label: Game Theory
+    patterns: [Harrington2e, "Game Theory"]
+    dest: "{stats}/Game Theory/"
+
+  - label: Finance
+    patterns:
+      - "FIN 3100"
+      - "FIN 3150"
+      - "FIN 4100"
+      - "Bond Homework"
+      - "Bond Slides"
+      - "Stock Valuation"
+      - "TVM Puzzle"
+      - Netflix
+    dest: "{stats}/Finance/"
+
+  - label: MGMT 2240
+    patterns: ["MGMT 2240", "Business Calculus"]
+    dest: "{stats}/MGMT 2240/"
+
+  - label: MGMT 2400
+    patterns: ["MGMT 2400"]
+    dest: "{stats}/MGMT 2400/"
+
+  - label: MKTG
+    patterns: [MKTG, Simternship]
+    dest: "{stats}/MKTG/"
+
+  - label: Certificates
+    patterns: [CertificateOfCompletion, citiCompletion]
+    dest: "{stats}/Certificates/"
+
+  - label: INFO Database
+    patterns: [INFO3130, "INFO 2410", Database, SQL, ERD]
+    dest: "{stats}/INFO Database/"
+
+  - label: PORT 3050
+    patterns: ["PORT 3050", PORT3050, Conjun, industria, Eventos]
+    dest: "{stats}/PORT 3050/"
+
+  - label: Weekender
+    patterns: [Weekender]
+    dest: "{home}/Weekender/"
+
+  - label: Research Ethics
+    patterns:
+      - RCR-Basic
+      - "RCR)"
+      - "Research Misconduct"
+      - "Peer Review (RCR"
+      - "Authorship (RCR"
+      - "Collaborative Research (RCR"
+      - "Conflicts of Interest (RCR"
+      - "Data Management (RCR"
+      - "Mentoring (RCR"
+      - belmont_report
+    dest: "{stats}/Research Ethics/"
+
+  - label: "pems -> Utah_Commuting"
+    patterns: [pems_]
+    dest: "{stats}/Utah_Commuting/"
+
+  - label: SWLS
+    patterns: [SWLS, "Satisfaction with Life"]
+    dest: "{stats}/SWLS/"
+
+  - label: Planning Forms
+    patterns: ["Planning form", PlanningForm, "planning form"]
+    dest: "{stats}/Planning Forms/"
+
+  - label: Tutoring
+    patterns: [Tutoring, "SI Session", "Tutoring Session"]
+    dest: "{stats}/Tutoring/"
+
+compound_rules:
+  - label: MTC Turnover
+    contains: MTC
+    also_contains: [Turnover]
+    or_extension: .sav
+    dest: "{stats}/MTC Turnover/"
+
+  - label: MTC Turnover (DoR)
+    contains: DoR_MTC
+    also_contains: []
+    or_extension: ""
+    dest: "{stats}/MTC Turnover/"
+
+irb_rules:
+  - keywords: [dbit]
+    dest: "{stats}/DBIT/"
+  - keywords: [dsit, spiritual]
+    dest: "{stats}/Spirituality/01_Raw_Data/"
+  - keywords: [tongan]
+    dest: "{stats}/Adv Research Projects/"
+  - fallback: "{stats}/Adv Research Projects/"
