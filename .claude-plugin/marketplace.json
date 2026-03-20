@@ -14,6 +14,11 @@
       "name": "dev-cycle",
       "source": "./plugins/dev-cycle",
       "description": "4-team continuous improvement workflow: audit, scout, develop, and QA in autonomous loops"
+    },
+    {
+      "name": "session-handoff",
+      "source": "./plugins/session-handoff",
+      "description": "Save and restore structured session context for seamless handoffs between Claude Code terminals"
     }
   ]
 }
