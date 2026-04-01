@@ -1,0 +1,8 @@
+{
+  "name": "workspace-tools",
+  "version": "1.0.0",
+  "description": "PostToolUse code validation, session-start environment detection, and project management for multi-terminal workflows. Adapted from Secrettestbot/claude_hooks.",
+  "author": {
+    "name": "JoeWhiteJr"
+  }
+}

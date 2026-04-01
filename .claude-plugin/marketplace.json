@@ -24,6 +24,11 @@
       "name": "downloads-organizer",
       "source": "./plugins/downloads-organizer",
       "description": "Scan Downloads folder, classify files by project rules, and sort them into destinations with AI-assisted classification"
+    },
+    {
+      "name": "workspace-tools",
+      "source": "./plugins/workspace-tools",
+      "description": "PostToolUse code validation, session-start environment detection, and project management for multi-terminal workflows"
     }
   ]
 }
