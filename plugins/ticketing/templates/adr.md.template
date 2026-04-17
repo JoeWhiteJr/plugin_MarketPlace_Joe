@@ -1,0 +1,32 @@
+# ADR {{id}}: {{title}}
+
+**Status:** Proposed
+**Date:** {{date}}
+**Deciders:** joe
+
+## Context
+_What's the situation that requires a decision? What forces are at play?_
+
+## Decision
+_What did we decide?_
+
+## Rationale
+_Why did we decide this over alternatives?_
+
+## Alternatives Considered
+- **Option A:** Pros / Cons
+- **Option B:** Pros / Cons
+
+## Consequences
+### Positive
+-
+
+### Negative
+-
+
+### Risks
+-
+
+## Related
+- Related ADRs:
+- Related tickets:

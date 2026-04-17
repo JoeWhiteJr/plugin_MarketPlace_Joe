@@ -29,6 +29,11 @@
       "name": "workspace-tools",
       "source": "./plugins/workspace-tools",
       "description": "PostToolUse code validation, session-start environment detection, and project management for multi-terminal workflows"
+    },
+    {
+      "name": "ticketing",
+      "source": "./plugins/ticketing",
+      "description": "File-based ticketing, ADRs, and post-mortems per repo — open/in-progress/done workflow with YAML frontmatter and auto-incremented IDs"
     }
   ]
 }
