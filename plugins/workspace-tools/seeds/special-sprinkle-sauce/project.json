@@ -1,0 +1,43 @@
+{
+  "name": "special-sprinkle-sauce",
+  "description": "Trading AI: FastAPI + Next.js + Supabase",
+  "created": "2026-04-17",
+  "root": "/home/joe/Special-Sprinkle-Sauce",
+  "terminals": [
+    {
+      "name": "backend",
+      "workdir": "/home/joe/Special-Sprinkle-Sauce/backend",
+      "system_prompt": ""
+    },
+    {
+      "name": "frontend",
+      "workdir": "/home/joe/Special-Sprinkle-Sauce/frontend",
+      "system_prompt": ""
+    }
+  ],
+  "context_files": [
+    "README.md",
+    "docs/PROJECT_STANDARDS_v2.md",
+    "docs/CLAUDE_v2.md"
+  ],
+  "project_type": [
+    "Python",
+    "TypeScript"
+  ],
+  "dev_commands": [
+    {
+      "name": "backend",
+      "cwd": "backend",
+      "cmd": "TRADING_MODE=paper uvicorn app.main:app --reload",
+      "port": 8000
+    },
+    {
+      "name": "frontend",
+      "cwd": "frontend",
+      "cmd": "npm run dev",
+      "port": 3000
+    }
+  ],
+  "test_command": "make test",
+  "memory_pointer": "MEMORY.md § Special Sprinkle Sauce (Wasden Watch)"
+}

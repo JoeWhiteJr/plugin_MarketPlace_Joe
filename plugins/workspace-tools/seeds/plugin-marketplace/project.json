@@ -1,0 +1,14 @@
+{
+  "name": "plugin-marketplace",
+  "description": "Plugin marketplace \u2014 joe-marketplace",
+  "created": "2026-04-17",
+  "root": "/home/joe/plugin_MarketPlace_Joe",
+  "terminals": [],
+  "context_files": [],
+  "project_type": [
+    "JavaScript"
+  ],
+  "dev_commands": [],
+  "test_command": "",
+  "memory_pointer": "MEMORY.md § Plugin Marketplace"
+}

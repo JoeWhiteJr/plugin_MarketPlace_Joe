@@ -1,0 +1,12 @@
+{
+  "name": "dev-cycle",
+  "description": "Dev-cycle plugin \u2014 autonomous 4-team improvement loop",
+  "created": "2026-04-17",
+  "root": "/home/joe/plugin_MarketPlace_Joe/plugins/dev-cycle",
+  "terminals": [],
+  "context_files": [],
+  "project_type": [],
+  "dev_commands": [],
+  "test_command": "",
+  "memory_pointer": "MEMORY.md § Dev-Cycle Plugin"
+}

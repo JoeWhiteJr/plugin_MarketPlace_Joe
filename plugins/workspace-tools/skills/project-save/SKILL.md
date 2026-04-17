@@ -1,66 +1,71 @@
 ---
 name: project-save
-description: Save the current workspace as a named project configuration with terminals, working directories, and context files.
-user_invocable: true
+description: Save the current workspace as a named project configuration with dev commands and context files.
+disable-model-invocation: true
 ---
 
-## Save Workspace Project
+# Save workspace project
 
-Save the current workspace setup as a reusable project configuration.
+Capture the current workspace as a reusable config at `~/.claude/workspace-projects/<name>/project.json`. The actual write is done by `scripts/project-save.sh` (non-interactive); your job is to gather inputs from the user and the environment, then invoke the script with concrete flags.
 
-### Arguments
-The user should provide: `<project-name> [description]`
+## Inputs
 
-If no name is provided, ask for one.
+`$ARGUMENTS` is expected to be `<name> [description words...]`.
 
-### Steps
+- If `<name>` is missing, ask the user for it before proceeding.
+- If description words are present, join them into the `description`. If absent, ask.
 
-1. **Gather project info:**
-   - Project name from arguments (or ask)
-   - Description (from arguments, or generate from repo/directory context)
-   - Current working directory
-   - Detect project type (Python, Node, TypeScript, etc.)
+Name must match `^[a-zA-Z0-9_-]+$` (kebab-case or snake_case). Reject spaces or slashes.
 
-2. **Determine terminal configuration:**
-   - Ask the user what terminals they want for this project (e.g., "Backend", "Frontend", "Tests")
-   - For each terminal, record: name, working directory, and optional system prompt
-   - If the user doesn't specify, create a sensible default based on project structure:
-     - Monorepo with `backend/` + `frontend/`: 2 terminals
-     - Single project: 1 terminal at project root
+## Workflow
 
-3. **Collect context files (optional):**
-   - Ask if there are key files that should be auto-loaded when starting the project
-   - Examples: README.md, architecture docs, task lists, API specs
-   - Copy referenced files to `~/.claude/workspace-projects/<name>/context/`
-   - Convert to `.md` format if needed
+1. **Detect cwd.** Run `pwd` to determine the project root. Confirm the absolute path with the user if it looks wrong (e.g. you are inside a subdir of the real repo).
 
-4. **Save the configuration:**
-   Write a JSON file to `~/.claude/workspace-projects/<name>/project.json`:
+2. **Detect project type.** Check for these files at the root and build a deduplicated list:
+   - `package.json` or `tsconfig.json` → add `TypeScript` (or `JavaScript` if no `tsconfig.json`)
+   - `pyproject.toml`, `setup.py`, or `requirements.txt` → add `Python`
+   - `Cargo.toml` → add `Rust`
+   - `go.mod` → add `Go`
 
-   ```json
-   {
-     "name": "<project-name>",
-     "description": "<description>",
-     "created": "<ISO 8601 timestamp>",
-     "root": "<absolute path to project root>",
-     "terminals": [
-       {
-         "name": "<terminal-name>",
-         "workdir": "<absolute path>",
-         "system_prompt": "<optional custom instructions>"
-       }
-     ],
-     "context_files": ["README.md", "docs/architecture.md"],
-     "project_type": ["Python", "TypeScript"]
-   }
+3. **Detect likely dev commands.** Inspect the repo and propose entries:
+   - `package.json` with `scripts.dev` → `{"name": "frontend", "cwd": ".", "cmd": "npm run dev", "port": 3000}` (adjust port if visible)
+   - `package.json` with `scripts.start` (no `dev`) → same shape with `npm start`
+   - `backend/` + `frontend/` subdirs → propose two entries, one per subdir
+   - FastAPI/`uvicorn` references in Python → `uvicorn app.main:app --reload` with port 8000
+   - `Makefile` with a `dev` or `run` target → `make dev` / `make run`
+   - If nothing detected, leave `dev_commands` as `[]`
+
+4. **Propose the config to the user.** Show detected project type, proposed dev commands, and the description. Ask them to confirm or edit. Accept corrections before moving on.
+
+5. **Ask about context files.** Suggest `README.md` if it exists, plus obvious docs (`docs/*.md`, `ARCHITECTURE.md`). Paths must be relative to the root.
+
+6. **Ask about test command.** Common defaults: `make test`, `pytest`, `npm test`. Empty string is fine.
+
+7. **Ask about memory pointer.** Usually `MEMORY.md § <Project Name>`. Empty string is fine.
+
+8. **Invoke the script.** Resolve the plugin root (`${CLAUDE_PLUGIN_ROOT}` if set, else `~/.claude/plugins/marketplaces/joe-marketplace/plugins/workspace-tools`) and run:
+
+   ```bash
+   PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/marketplaces/joe-marketplace/plugins/workspace-tools}"
+   bash "$PLUGIN_ROOT/scripts/project-save.sh" "$name" \
+     --description "$desc" \
+     --root "$root" \
+     --project-type "$types_csv" \
+     --dev-commands "$dev_commands_json" \
+     --context-files "$context_csv" \
+     --test-command "$test_cmd" \
+     --memory-pointer "$memory_ptr"
    ```
 
-5. **Confirm to user:**
-   - Show the saved configuration summary
-   - Remind them: `Use /workspace-tools:project-start <name> to launch this project`
+   - `$types_csv` is a comma-separated list (e.g. `"Python,TypeScript"`); pass `""` for none.
+   - `$dev_commands_json` is a raw JSON array string (e.g. `'[{"name":"api","cwd":"backend","cmd":"uvicorn app.main:app --reload","port":8000}]'`); pass `'[]'` for none.
+   - `$context_csv` is comma-separated paths relative to root; omit the flag or pass `""` for none.
+   - Add `--force` only if the user explicitly asked to overwrite an existing config.
 
-### Important
-- Use absolute paths, never relative (WSL cross-filesystem safety)
-- Use `cp` + `rm` instead of `mv` for any cross-filesystem operations
-- Never overwrite an existing project without confirming first
-- Store projects in `~/.claude/workspace-projects/`, NOT `~/.claude/projects/` (avoid conflicts with Claude's internal directories)
+9. **Relay the script output verbatim** (it already prints the saved path, a field summary, and the next-step hint). If the script exits non-zero, show the error and ask the user how to proceed — do not retry silently.
+
+## Constraints
+
+- Do not call `read` or prompt for stdin inside the script — all inputs flow through flags.
+- Paths are always absolute for `--root` and relative (from root) for `--context-files`.
+- Never touch `~/.claude/projects/` (Claude's auto-memory dir). This skill writes only to `$WORKSPACE_PROJECTS_DIR` (default `~/.claude/workspace-projects/`).

@@ -1,0 +1,12 @@
+{
+  "name": "meridian",
+  "description": "PhD-guided AI impact diagnostics startup",
+  "created": "2026-04-17",
+  "root": "/home/joe/Meridian",
+  "terminals": [],
+  "context_files": [],
+  "project_type": [],
+  "dev_commands": [],
+  "test_command": "",
+  "memory_pointer": "MEMORY.md § Meridian Diagnostic"
+}

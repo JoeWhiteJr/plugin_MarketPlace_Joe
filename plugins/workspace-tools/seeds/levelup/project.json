@@ -1,0 +1,21 @@
+{
+  "name": "levelup",
+  "description": "Celestial-themed gamification app (localhost:8888)",
+  "created": "2026-04-17",
+  "root": "/home/joe/LevelUp",
+  "terminals": [],
+  "context_files": [],
+  "project_type": [
+    "JavaScript"
+  ],
+  "dev_commands": [
+    {
+      "name": "server",
+      "cwd": ".",
+      "cmd": "python3 -m http.server 8888",
+      "port": 8888
+    }
+  ],
+  "test_command": "",
+  "memory_pointer": "MEMORY.md § LevelUp Project"
+}
