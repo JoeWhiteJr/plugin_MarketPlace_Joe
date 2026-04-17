@@ -1,0 +1,15 @@
+{
+  "name": "rydlnk",
+  "description": "Ridesharing startup \u2014 R/Python data analysis",
+  "created": "2026-04-17",
+  "root": "/home/joe/utah_commuting",
+  "terminals": [],
+  "context_files": [],
+  "project_type": [
+    "Python",
+    "R"
+  ],
+  "dev_commands": [],
+  "test_command": "",
+  "memory_pointer": "MEMORY.md § rydlnk Project (Ridesharing Startup)"
+}

@@ -1,56 +1,24 @@
 ---
 name: project-list
 description: List all saved workspace project configurations with their details.
-user_invocable: true
+disable-model-invocation: true
 ---
 
-## List Workspace Projects
+# List Workspace Projects
 
-Show all saved project configurations.
+Run the list script and relay its output to the user verbatim. Do not summarize or reformat — the script's output is already formatted for the user.
 
-### Steps
+## Steps
 
-1. **Scan for projects:**
-   - Look in `~/.claude/workspace-projects/` for subdirectories containing `project.json`
-   - If the directory doesn't exist or is empty, tell the user:
-     "No saved projects. Use `/workspace-tools:project-save <name>` to save your current workspace."
-
-2. **Display each project:**
-   For each project found, show:
-   - **Name** and description
-   - **Root directory** (and whether it still exists)
-   - **Terminals** — count and names
-   - **Context files** — count and names
-   - **Created date**
-   - **Project type** (Python, TypeScript, etc.)
-
-3. **Format as a clean table or list:**
-
-   Example:
+1. Invoke the script:
+   ```bash
+   bash "${CLAUDE_PLUGIN_ROOT}/scripts/project-list.sh"
    ```
-   Saved Projects (3):
-   
-   wasden-watch
-     Trading AI system — FastAPI + Next.js + Supabase
-     Root: /home/joe/Special-Sprinkle-Sauce
-     Terminals: Backend, Frontend (2)
-     Context: README.md, architecture.md
-     Created: 2026-03-15
-   
-   rydlnk
-     Schedule-optimized ridesharing platform
-     Root: /home/joe/Utah_Commuting
-     Terminals: Analysis (1)
-     Context: data-sources.md
-     Created: 2026-03-20
-   
-   levelup
-     Celestial-themed gamification app
-     Root: /home/joe/LevelUp
-     Terminals: Main (1)
-     Created: 2026-03-25
+   If `CLAUDE_PLUGIN_ROOT` is not set in the environment, fall back to:
+   ```bash
+   bash ~/.claude/plugins/marketplaces/joe-marketplace/plugins/workspace-tools/scripts/project-list.sh
    ```
 
-4. **Show usage hint:**
-   - `Use /workspace-tools:project-start <name> to launch a project`
-   - `Use /workspace-tools:project-save <name> to save a new project`
+2. Relay the script's stdout to the user.
+
+3. If the script reports "No saved projects", remind the user they can run `/workspace-tools:project-seed` to pre-seed the 6 known projects.
