@@ -1,0 +1,33 @@
+---
+date: {{date}}
+title: {{title}}
+severity: medium
+tags:
+---
+
+# {{title}}
+
+## Summary
+_One paragraph: what happened, what was the impact._
+
+## Timeline
+- **{{date}} HH:MM** — Event
+
+## Root Cause
+_The actual underlying cause. Go 5-whys deep if needed._
+
+## Impact
+_Who/what was affected? Duration? Scope?_
+
+## What We Changed
+_Immediate fixes applied._
+
+## How to Prevent Recurrence
+_Systemic changes. Hooks, tests, process changes._
+
+## Action Items
+- [ ] Action 1 (owner, due date)
+- [ ] Action 2
+
+## Lessons
+_Broader takeaways for future work._

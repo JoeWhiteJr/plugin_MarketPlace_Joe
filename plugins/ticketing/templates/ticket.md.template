@@ -1,0 +1,30 @@
+---
+id: {{id}}
+title: {{title}}
+status: open
+priority: medium
+type: feature
+owner: joe
+created: {{date}}
+updated: {{date}}
+related-pr:
+related-tickets:
+---
+
+# {{title}}
+
+## Problem
+_What's the problem we're solving? Who is affected?_
+
+## Acceptance Criteria
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+## Context & Notes
+_Background, decisions made, links, gotchas._
+
+## Implementation Plan
+_How will we solve this? Break into steps if useful._
+
+## Retrospective
+_Fill in when moving to done/: what went well, what didn't, what we'd do differently._
