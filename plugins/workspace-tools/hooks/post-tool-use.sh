@@ -80,10 +80,17 @@ if [[ "$EXTENSION" == "py" ]]; then
   fi
 
 # ═══════════════════════════════════════
-# TYPESCRIPT / JAVASCRIPT VALIDATION
+# TYPESCRIPT / JSX VALIDATION (.ts, .tsx, .jsx)
+#   .jsx is routed here (not the .js branch below) because `node --check`
+#   cannot parse JSX syntax and emits ERR_UNKNOWN_FILE_EXTENSION. ESLint
+#   handles JSX correctly when a project-local eslint binary is present.
 # ═══════════════════════════════════════
-elif [[ "$EXTENSION" == "ts" || "$EXTENSION" == "tsx" ]]; then
-  FEEDBACK="=== TypeScript Validation: $(basename "$FILE_PATH") ===\n"
+elif [[ "$EXTENSION" == "ts" || "$EXTENSION" == "tsx" || "$EXTENSION" == "jsx" ]]; then
+  if [[ "$EXTENSION" == "jsx" ]]; then
+    FEEDBACK="=== JSX Validation: $(basename "$FILE_PATH") ===\n"
+  else
+    FEEDBACK="=== TypeScript Validation: $(basename "$FILE_PATH") ===\n"
+  fi
 
   # Find the project root (nearest tsconfig.json)
   DIR="$FILE_PATH"
@@ -96,8 +103,10 @@ elif [[ "$EXTENSION" == "ts" || "$EXTENSION" == "tsx" ]]; then
     fi
   done
 
-  # TypeScript compiler check (no emit)
-  if [[ -n "$TSCONFIG_DIR" ]]; then
+  # TypeScript compiler check (no emit) — only meaningful for .ts/.tsx.
+  # Skip for .jsx since tsc on a JS file without allowJs/checkJs is a no-op
+  # but still spends time spinning up the compiler.
+  if [[ -n "$TSCONFIG_DIR" && ("$EXTENSION" == "ts" || "$EXTENSION" == "tsx") ]]; then
     if [[ -f "$TSCONFIG_DIR/node_modules/.bin/tsc" ]]; then
       TSC_OUT=$("$TSCONFIG_DIR/node_modules/.bin/tsc" --noEmit --pretty false 2>&1 | grep "$(basename "$FILE_PATH")" | head -10)
       if [[ -n "$TSC_OUT" ]]; then
@@ -132,10 +141,11 @@ elif [[ "$EXTENSION" == "ts" || "$EXTENSION" == "tsx" ]]; then
     fi
   fi
 
-elif [[ "$EXTENSION" == "js" || "$EXTENSION" == "jsx" ]]; then
+elif [[ "$EXTENSION" == "js" ]]; then
   FEEDBACK="=== JavaScript Validation: $(basename "$FILE_PATH") ===\n"
 
-  # Syntax check via Node
+  # Syntax check via Node (.jsx is handled in the TS/JSX branch above —
+  # `node --check` cannot parse JSX and emits ERR_UNKNOWN_FILE_EXTENSION).
   NODE_OUT=$(node --check "$FILE_PATH" 2>&1)
   if [[ $? -ne 0 ]]; then
     FEEDBACK+="\nSyntax error:\n$NODE_OUT\n"
